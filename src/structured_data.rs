@@ -124,6 +124,8 @@ impl StructuredData {
         self.version = other.version;
         self.current_owner_keys  = other.current_owner_keys;
         self.previous_owner_signatures = other.previous_owner_signatures;
+        self.min_date = other.min_date;
+        self.max_date = other.max_date;
         Ok(())
     }
 
@@ -153,6 +155,10 @@ impl StructuredData {
     /// Validate date. An error is generated when current date is not in the range [min_date .. max_date]
     pub fn validate_date(&self) -> Result<(), ::error::RoutingError> {
         use time;
+        // Don't compute utc time for standard SD (with default values for dates)
+        if self.min_date <= 0 && self.max_date == i64::max_value() {
+            return Ok(())
+        }
         let now_utc = time::now_utc().to_timespec().sec;
         if now_utc < self.min_date || now_utc > self.max_date {
             Err(::error::RoutingError::OutOfRangeDate)
