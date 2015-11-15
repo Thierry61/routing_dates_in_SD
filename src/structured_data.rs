@@ -344,7 +344,7 @@ mod test {
         let owner_keys = vec![keys.0];
 
         match super::StructuredData::new(0,
-                                  ::test_utils::Random::generate_random(),
+                                  rand::random(),
                                   0,
                                   vec![],
                                   owner_keys.clone(),
@@ -371,7 +371,7 @@ mod test {
         let max_date = (now_utc + time::Duration::minutes(10)).sec;
 
         match super::StructuredData::with_dates(0,
-                                  ::test_utils::Random::generate_random(),
+                                  rand::random(),
                                   0,
                                   vec![],
                                   owner_keys.clone(),
@@ -400,7 +400,7 @@ mod test {
         let max_date = (now_utc + time::Duration::minutes(-10)).sec;
 
         match super::StructuredData::with_dates(0,
-                                  ::test_utils::Random::generate_random(),
+                                  rand::random(),
                                   0,
                                   vec![],
                                   owner_keys.clone(),
